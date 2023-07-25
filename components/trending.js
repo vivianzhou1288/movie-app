@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,9 +12,10 @@ import {
 import Carousel from "react-native-snap-carousel";
 import { MaterialIcons } from "@expo/vector-icons";
 import MovieDetails from "./movieDetails";
+import { fetchMovieDetails, image500 } from "../api/moviedb";
 
 var { width, height } = Dimensions.get("window");
-export default function NowPlaying({ data }) {
+export default function Trending({ data }) {
   const navigation = useNavigation();
   const handleClick = (item) => {
     setModalOpen(true);
@@ -23,10 +24,11 @@ export default function NowPlaying({ data }) {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [item, setItem] = useState({});
+
   return (
     <View>
-      <Text className="text-white text-xl mx-4 mt-10 mb-5 font-semibold">
-        Now Playing
+      <Text className="text-white text-xl mx-4 mb-5 font-semibold">
+        Trending
       </Text>
       <Modal visible={modalOpen} animationType="slide">
         <SafeAreaView className="flex-1 bg-black">
@@ -62,7 +64,8 @@ const MovieCard = ({ item, handleClick }) => {
     <View className="items-center">
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <Image
-          source={require("../assets/images/moviePoster1.png")}
+          // source={require("../assets/images/moviePoster1.png")}
+          source={{ uri: image500(item.poster_path) }}
           style={{
             width: width * 0.6,
             height: height * 0.4,
@@ -70,8 +73,8 @@ const MovieCard = ({ item, handleClick }) => {
           className="rounded-3xl"
         />
       </TouchableWithoutFeedback>
-      <Text className="text-white mt-4 mb-8 text-2xl font-semibold">
-        Captain Marvel
+      <Text className="text-white mt-4 mb-8 text-2xl font-semibold text-center">
+        {item.original_title}
       </Text>
     </View>
   );

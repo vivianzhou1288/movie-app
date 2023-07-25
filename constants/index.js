@@ -1,3 +1,5 @@
+export const apiKey = "26bc849920009db729d17e22a03accef";
+
 export const moviesData = [
   {
     id: 2,

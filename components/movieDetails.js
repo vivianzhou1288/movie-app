@@ -1,16 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, Image, Dimensions } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "./cast";
+import {
+  fallbackMoviePoster,
+  fetchMovieCredits,
+  fetchMovieDetails,
+  fetchSimilarMovies,
+} from "../api/moviedb";
+import { image500 } from "../api/moviedb";
+import MovieList from "./movieList";
 
 var { width, height } = Dimensions.get("window");
 
 export default function MovieDetails({ item }) {
+  const [movie, setMovie] = useState({});
+
+  const getMovieDetails = async (id) => {
+    const data = await fetchMovieDetails(id);
+    if (data) setMovie(data);
+  };
+
+  const getMovieCredits = async (id) => {
+    const data = await fetchMovieCredits(id);
+
+    if (data && data.cast) setCast(data.cast);
+  };
+
+  const getSimilarMovies = async (id) => {
+    const data = await fetchSimilarMovies(id);
+
+    if (data && data.results) setSimilarMovies(data.results);
+  };
+
   useEffect(() => {
-    //call the movie details api
+    getMovieDetails(item.id);
+    getMovieCredits(item.id);
+    getSimilarMovies(item.id);
   }, [item]);
 
-  const [cast, setCast] = useState([1, 2, 3, 4, 5]);
+  const [cast, setCast] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [active, setActive] = useState("Cast");
 
   return (
     <ScrollView
@@ -20,7 +58,9 @@ export default function MovieDetails({ item }) {
       <View className="w-full">
         <View>
           <Image
-            source={require("../assets/images/moviePoster2.png")}
+            source={{
+              uri: image500(movie?.poster_path) || fallbackMoviePoster,
+            }}
             style={{ width: width, height: height * 0.43 }}
             className="rounded-xl"
           />
@@ -42,33 +82,46 @@ export default function MovieDetails({ item }) {
       <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
         {/*title */}
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          Ant-Man and the Wasp: Quantumania
+          {movie?.title}
         </Text>
-        <Text className="text-neutral-400 font-semibold text-base text-center">
-          Released ⋅ 2020 ⋅ 170 min
-        </Text>
+        {movie?.id ? (
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            {movie?.status} • {movie?.release_date?.split("-")[0] || "N/A"} •{" "}
+            {movie?.runtime} min
+          </Text>
+        ) : null}
         <View className="flex-row justify-center mx-4 space-x-2">
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Action ⋅
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Thrill ⋅
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Comedy
-          </Text>
+          {movie?.genres?.map((genre, index) => {
+            let showDot = index + 1 != movie.genres.length;
+            return (
+              <Text
+                key={index}
+                className="text-neutral-400 font-semibold text-base text-center"
+              >
+                {genre?.name} {showDot ? "•" : null}
+              </Text>
+            );
+          })}
         </View>
 
         {/* description */}
         <Text className="text-neutral-400 mx-4 tracking-wide text-center">
-          Scott Lang and Hope Van Dyne are dragged into the Quantum Realm, along
-          with Hope's parents and Scott's daughter Cassie. Together they must
-          find a way to escape, but what secrets is Hope's mother hiding? And
-          who is the mysterious Kang?
+          {movie?.overview}
         </Text>
 
         {/* cast */}
-        <Cast cast={cast} />
+        <View className="flew flex-row mt-4">
+          <TouchableOpacity onPress={() => setActive("Cast")}>
+            <Text className="text-white text-lg mx-4 font-semibold">Cast</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setActive("Movies")}>
+            <Text className="text-white text-lg mx-4 font-semibold">
+              Suggested
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {active === "Cast" && <Cast cast={cast} />}
+        {active === "Movies" && <MovieList data={similarMovies} />}
       </View>
     </ScrollView>
   );

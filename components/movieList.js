@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import MovieDetails from "./movieDetails";
 import { MaterialIcons } from "@expo/vector-icons";
+import { fallbackMoviePoster, image185 } from "../api/moviedb";
 
 var { width, height } = Dimensions.get("window");
 
@@ -57,7 +58,9 @@ export default function MovieList({ title, data }) {
             >
               <View className="space-y-1 mr-4">
                 <Image
-                  source={require("../assets/images/moviePoster2.png")}
+                  source={{
+                    uri: image185(item.poster_path) || fallbackMoviePoster,
+                  }}
                   className="rounded-3xl"
                   style={{ width: width * 0.33, height: height * 0.22 }}
                 ></Image>
