@@ -1,26 +1,56 @@
 import React from "react";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
-import MovieScreen from "../screens/MovieScreen";
+import SearchScreen from "../screens/SearchScreen";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+// const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: "black",
+          },
+          headerShown: false,
+          tabBarShowLabel: false,
+        }}
+      >
+        <Tab.Screen
           name="Home"
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="home"
+                color={focused ? "white" : "#D3D3D3"}
+                size={30}
+              />
+            ),
+          }}
           component={HomeScreen}
         />
-        <Stack.Screen
-          name="Movie"
-          options={{ headerShown: false }}
-          component={MovieScreen}
+        <Tab.Screen
+          name="Search"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="search"
+                color={focused ? "white" : "#D3D3D3"}
+                size={30}
+              />
+            ),
+          }}
+          component={SearchScreen}
         />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

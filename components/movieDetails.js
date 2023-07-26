@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Animated,
   Linking,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "./cast";
@@ -36,13 +37,13 @@ export default function MovieDetails({ item }) {
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
 
-    if (data && data.cast) setCast(data.cast);
+    if (data && data.cast) setCast(data.cast.slice(0, 20));
   };
 
   const getSimilarMovies = async (id) => {
     const data = await fetchSimilarMovies(id);
 
-    if (data && data.results) setSimilarMovies(data.results);
+    if (data && data.results) setSimilarMovies(data.results.slice(0, 5));
   };
 
   const getVideos = async (id) => {
@@ -78,26 +79,34 @@ export default function MovieDetails({ item }) {
       <Animated.View style={{ opacity: fadeAnim }}>
         <View className="w-full">
           <View>
-            <Image
-              source={{
-                uri: image500(movie?.poster_path) || fallbackMoviePoster,
-              }}
-              style={{ width: width, height: height * 0.43 }}
-              className="rounded-xl"
-            />
-            <TouchableOpacity
-              className="absolute mt-[120px] mx-[160px]"
-              onPress={() => Linking.openURL(url)}
-            >
-              <Ionicons name="play-circle-outline" size={70} color={"white"} />
-            </TouchableOpacity>
+            <TouchableWithoutFeedback onPress={() => Linking.openURL(url)}>
+              <View>
+                <Image
+                  source={{
+                    uri: image500(movie?.poster_path) || fallbackMoviePoster,
+                  }}
+                  style={{ width: width, height: height * 0.43 }}
+                  className="rounded-xl"
+                />
+                <TouchableOpacity
+                  className="absolute mt-[120px] mx-[160px]"
+                  onPress={() => Linking.openURL(url)}
+                >
+                  <Ionicons
+                    name="play-circle-outline"
+                    size={70}
+                    color={"white"}
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
             <LinearGradient
               colors={[
                 "transparent",
                 "rgba(23, 23, 23, 0.8)",
                 "rgba(23, 23, 23, 1)",
               ]}
-              style={{ width, height: height * 0.23 }}
+              style={{ width, height: height * 0.25 }}
               start={{ x: 0.5, y: 0 }}
               end={{ x: 0.5, y: 1 }}
               className="absolute bottom-0"

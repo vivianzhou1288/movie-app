@@ -32,7 +32,7 @@ export default function HomeScreen() {
 
   const getTrendingMovies = async () => {
     const data = await fetchTrendingMovies();
-    if (data && data.results) setTrending(data.results);
+    if (data && data.results) setTrending(data.results.slice(0, 10));
     setLoading(false);
   };
 
@@ -50,7 +50,7 @@ export default function HomeScreen() {
 
   const getTrendingShows = async () => {
     const data = await fetchTrendingShows();
-    if (data && data.results) setTrendingShows(data.results);
+    if (data && data.results) setTrendingShows(data.results.slice(0, 10));
     setLoading(false);
   };
 

@@ -9,7 +9,7 @@ import {
   Modal,
   SafeAreaView,
 } from "react-native";
-import Carousel from "react-native-snap-carousel-v4";
+import Carousel from "react-native-snap-carousel";
 import { MaterialIcons } from "@expo/vector-icons";
 import MovieDetails from "./movieDetails";
 import { fetchMovieDetails, image500 } from "../api/moviedb";
@@ -28,7 +28,7 @@ export default function Trending({ data }) {
   return (
     <View>
       <Text className="text-white text-xl mx-4 mb-5 font-semibold">
-        Trending Movies
+        Trending
       </Text>
       <Modal visible={modalOpen} animationType="slide">
         <SafeAreaView className="flex-1 bg-black">
@@ -54,12 +54,6 @@ export default function Trending({ data }) {
         sliderWidth={width}
         itemWidth={width * 0.62}
         slideStyle={{ display: "flex", alignItems: "center" }}
-        useScrollView={true}
-        // loop={true}
-        loopClonesPerSide={data.length}
-        autoplay={false}
-        // enableMomentum={false}
-        // lockScrollWhileSnapping={true}
       />
     </View>
   );

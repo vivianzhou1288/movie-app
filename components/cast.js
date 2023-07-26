@@ -6,18 +6,7 @@ import MovieList from "./movieList";
 export default function Cast({ cast }) {
   return (
     <View className="my-6">
-      <View className="flew flex-row">
-        {/* <TouchableOpacity>
-          <Text className="text-white text-lg mx-4 mb-5 font-semibold">
-            Cast
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text className="text-white text-lg mx-4 mb-5 font-semibold">
-            Suggested
-          </Text>
-        </TouchableOpacity> */}
-      </View>
+      <View className="flew flex-row"></View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -37,10 +26,16 @@ export default function Cast({ cast }) {
                   />
                 </View>
                 <Text className="text-white text-xs mt-1 flex flex-wrap">
-                  {person?.name}
+                  {/* {person.name} */}
+                  {person?.original_name.length > 10
+                    ? person.original_name.slice(0, 10) + "..."
+                    : person?.original_name}
                 </Text>
                 <Text className="text-neutral-400 text-xs mt-1">
-                  {person?.character}
+                  {/* {person?.character} */}
+                  {person?.character.length > 10
+                    ? person.character.slice(0, 10) + "..."
+                    : person?.character}
                 </Text>
               </View>
             );
