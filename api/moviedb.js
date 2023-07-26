@@ -3,6 +3,7 @@ import { apiKey } from "../constants";
 
 //endpoints
 const baseURL = "https://api.themoviedb.org/3";
+
 const nowPlayingMoviesEndpoint = `${baseURL}/movie/now_playing?api_key=${apiKey}`;
 const trendingMoviesEndpoint = `${baseURL}/trending/movie/day?api_key=${apiKey}`;
 const upcomingMoviesEndpoint = `${baseURL}/movie/upcoming?api_key=${apiKey}`;
@@ -15,6 +16,9 @@ const movieCreditsEndpoint = (id) =>
   `${baseURL}/movie/${id}/credits?api_key=${apiKey}`;
 const similarMoviesEndpoint = (id) =>
   `${baseURL}/movie/${id}/similar?api_key=${apiKey}`;
+const tvDetailsEndpoint = (id) => `${baseURL}/tv/${id}?api_key=${apiKey}`;
+const videosEndpoint = (id) =>
+  `${baseURL}/movie/${id}/videos?api_key=${apiKey}`;
 
 export const image500 = (path) =>
   path ? `https://image.tmdb.org/t/p/w500/${path}` : null;
@@ -73,4 +77,12 @@ export const fetchSimilarMovies = (movieId) => {
 
 export const fetchTrendingShows = () => {
   return apiCall(trendingShowsEndpoint);
+};
+
+export const fetchTvDetails = (id) => {
+  return apiCall(tvDetailsEndpoint(id));
+};
+
+export const fetchVideos = (id) => {
+  return apiCall(videosEndpoint(id));
 };

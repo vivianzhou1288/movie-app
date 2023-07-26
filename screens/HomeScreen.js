@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import Trending from "../components/trending";
 import MovieList from "../components/movieList";
+import TvList from "../components/tvList";
 import Loading from "../components/loading";
 import {
   fetchNowPlayingMovies,
@@ -79,20 +80,19 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
-          {/* Now Playing movies carousel */}
+          {/* Trending movies carousel */}
           {trending.length > 0 && <Trending data={trending} />}
 
-          {/* Trending movies row */}
+          {/* Trending TV shows row */}
+          <TvList title="Trending TV Shows" data={trendingShows} />
+
+          {/* Now-Playing movies row */}
           {playing.length > 0 && (
             <MovieList title="Now-Playing" data={playing} />
           )}
 
           {/* Top Rated movies row */}
           <MovieList title="Top-Rated" data={topRated} />
-
-          {/* Trending TV shows row */}
-
-          <MovieList title="Trending TV Shows" data={trendingShows} />
         </ScrollView>
       )}
     </View>
