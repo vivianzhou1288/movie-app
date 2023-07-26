@@ -16,6 +16,8 @@ import {
   fetchNowPlayingMovies,
   fetchTrendingMovies,
   fetchTopRatedMovies,
+  fetchPopularMovies,
+  fetchTrendingShows,
 } from "../api/moviedb";
 
 const ios = Platform.OS == "ios";
@@ -24,6 +26,7 @@ export default function HomeScreen() {
   const [playing, setPlaying] = useState([]);
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
+  const [trendingShows, setTrendingShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getTrendingMovies = async () => {
@@ -44,10 +47,18 @@ export default function HomeScreen() {
     setLoading(false);
   };
 
+  const getTrendingShows = async () => {
+    const data = await fetchTrendingShows();
+    if (data && data.results) setTrendingShows(data.results);
+    setLoading(false);
+  };
+
   useEffect(() => {
+    setLoading(true);
     getTrendingMovies();
     getNowPlayingMovies();
     getTopRatedMovies();
+    getTrendingShows();
   }, []);
 
   return (
@@ -76,8 +87,12 @@ export default function HomeScreen() {
             <MovieList title="Now-Playing" data={playing} />
           )}
 
-          {/* Top Rated moviews row */}
+          {/* Top Rated movies row */}
           <MovieList title="Top-Rated" data={topRated} />
+
+          {/* Trending TV shows row */}
+
+          <MovieList title="Trending TV Shows" data={trendingShows} />
         </ScrollView>
       )}
     </View>

@@ -7,7 +7,7 @@ const nowPlayingMoviesEndpoint = `${baseURL}/movie/now_playing?api_key=${apiKey}
 const trendingMoviesEndpoint = `${baseURL}/trending/movie/day?api_key=${apiKey}`;
 const upcomingMoviesEndpoint = `${baseURL}/movie/upcoming?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${baseURL}/movie/top_rated?api_key=${apiKey}`;
-const popularMoviesEndpoint = `${baseURL}/movie/popular?api_key=${apiKey}`;
+const trendingShowsEndpoint = `${baseURL}/trending/tv/day?api_key=${apiKey}`;
 
 //dynamic endpoints
 const movieDetailsEndpoint = (id) => `${baseURL}/movie/${id}?api_key=${apiKey}`;
@@ -58,9 +58,6 @@ export const fetchUpcomingMovies = () => {
 export const fetchTopRatedMovies = () => {
   return apiCall(topRatedMoviesEndpoint);
 };
-export const fetchPopularMovies = () => {
-  return apiCall(popularMoviesEndpoint);
-};
 
 export const fetchMovieDetails = (id) => {
   return apiCall(movieDetailsEndpoint(id));
@@ -72,4 +69,8 @@ export const fetchMovieCredits = (id) => {
 
 export const fetchSimilarMovies = (movieId) => {
   return apiCall(similarMoviesEndpoint(movieId));
+};
+
+export const fetchTrendingShows = () => {
+  return apiCall(trendingShowsEndpoint);
 };

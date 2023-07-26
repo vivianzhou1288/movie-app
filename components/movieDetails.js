@@ -49,7 +49,7 @@ export default function MovieDetails({ item }) {
     getSimilarMovies(item.id);
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 1000,
+      duration: 1700,
     }).start();
   }, [item]);
 
@@ -79,7 +79,7 @@ export default function MovieDetails({ item }) {
                 "rgba(23, 23, 23, 0.8)",
                 "rgba(23, 23, 23, 1)",
               ]}
-              style={{ width, height: height * 0.2 }}
+              style={{ width, height: height * 0.4 }}
               start={{ x: 0.5, y: 0 }}
               end={{ x: 0.5, y: 1 }}
               className="absolute bottom-0"
