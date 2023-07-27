@@ -8,6 +8,11 @@ const trendingEndpoint = `${baseURL}/trending/all/day?api_key=${apiKey}`;
 const trendingMoviesEndpoint = `${baseURL}/trending/movie/day?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${baseURL}/movie/top_rated?api_key=${apiKey}`;
 const trendingShowsEndpoint = `${baseURL}/trending/tv/day?api_key=${apiKey}`;
+const searchMoviesEndpoint = `${baseURL}/search/movie?api_key=${apiKey}`;
+const discoverMoviesEndpoint = `${baseURL}/discover/movie?api_key=${apiKey}`;
+const searchMovies2Endpoint = (keyword) => {
+  `${baseURL}/search/movie?query=${keyword}?api_key=${apiKey}`;
+};
 
 //dynamic endpoints
 const movieDetailsEndpoint = (id) => `${baseURL}/movie/${id}?api_key=${apiKey}`;
@@ -97,4 +102,16 @@ export const fetchVideos = (id) => {
 
 export const fetchTvVideos = (id) => {
   return apiCall(videosTvEndpoint(id));
+};
+
+export const searchMovies = (params) => {
+  return apiCall(searchMoviesEndpoint, params);
+};
+
+export const searchMovies2 = (keyword) => {
+  return apiCall(searchMovies2Endpoint(keyword));
+};
+
+export const fetchDiscoverMovies = () => {
+  return apiCall(discoverMoviesEndpoint);
 };

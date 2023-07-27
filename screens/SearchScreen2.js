@@ -16,7 +16,7 @@ import {
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import MovieDetails from "../components/movieDetails";
-import { searchMovies } from "../api/moviedb";
+import { searchMovies2, fetchDiscoverMovies } from "../api/moviedb";
 import Loading from "../components/loading";
 import { debounce } from "lodash";
 
@@ -24,10 +24,9 @@ const { width, height } = Dimensions.get("window");
 const movieName = "Ant-Man and the Wasp: Quantumania";
 
 export default function SearchScreen() {
-  const ref = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([1, 2, 3, 4]);
+  const [movies, setMovies] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -37,24 +36,24 @@ export default function SearchScreen() {
     setItem(item);
   };
 
-  const handleSearch = (search) => {
-    if (search && search.length > 2) {
-      setLoading(true);
-      setSearch(search);
-      searchMovies({
-        query: search,
-      }).then((data) => {
-        console.log("got search results");
-        setLoading(false);
-        if (data && data.results) setResults(data.results);
-      });
-    } else {
-      setLoading(false);
-      setResults([]);
-    }
+  const getAllMovies = async () => {
+    const data = await fetchDiscoverMovies();
+    if (data && data.results) setMovies(data.results.slice(0, 5));
   };
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+  const getSearchedMovies = async (name) => {
+    const data = await searchMovies2(name);
+    if (data && data.results) setMovies(data.results);
+    // console.log("worked");
+  };
+
+  useEffect(() => {
+    if (search === "") {
+      getAllMovies();
+    } else {
+      getSearchedMovies(search);
+    }
+  }, [search]);
 
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -70,14 +69,15 @@ export default function SearchScreen() {
           <TextInput
             placeholder="Search by title"
             placeholderTextColor={"#9A9A9A"}
-            onChangeText={handleTextDebounce}
+            value={search}
+            onChangeText={(textInput) => setSearch(textInput)}
             className="pb-1 pl-3 flex-1 text-base text-black tracking-wider h-12 text-[17.5px]"
             onFocus={() => {
               setClicked(true);
             }}
           />
           {clicked && (
-            <TouchableOpacity className="mr-3">
+            <TouchableOpacity className="mr-3" onPress={() => setSearch("")}>
               <Ionicons name={"close-circle-outline"} size={25} />
             </TouchableOpacity>
           )}
@@ -98,7 +98,7 @@ export default function SearchScreen() {
       {/* results */}
       {loading ? (
         <Loading />
-      ) : results.length > 0 ? (
+      ) : movies.length > 0 ? (
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -119,7 +119,7 @@ export default function SearchScreen() {
                 </View>
               </SafeAreaView>
             </Modal>
-            {results.map((item, index) => {
+            {movies.map((item, index) => {
               return (
                 <TouchableWithoutFeedback
                   key={index}
