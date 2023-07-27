@@ -67,18 +67,15 @@ export default function SearchScreen() {
         contentContainerStyle={{ paddingHorizontal: 15 }}
         className="space-y-3"
       >
-        <Text className="text-white font-semibold ml-1 mt-3">
-          Results ({results.length})
-        </Text>
+        <Text className="text-white font-semibold ml-1 mt-3">Results</Text>
         <View className="flex-row justify-between flex-wrap">
-          {results.map((item, index) => {
+          {/* {results.map((item, index) => {
             return (
               <TouchableWithoutFeedback
                 key={index}
-                // on
               ></TouchableWithoutFeedback>
             );
-          })}
+          })} */}
         </View>
       </ScrollView>
     </SafeAreaView>

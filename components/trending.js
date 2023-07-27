@@ -55,11 +55,10 @@ export default function Trending({ data }) {
         itemWidth={width * 0.62}
         slideStyle={{ display: "flex", alignItems: "center" }}
         useScrollView={true}
-        // loop={true}
+        loop={false}
         loopClonesPerSide={data.length}
         autoplay={false}
         // enableMomentum={false}
-        // lockScrollWhileSnapping={true}
       />
     </View>
   );
