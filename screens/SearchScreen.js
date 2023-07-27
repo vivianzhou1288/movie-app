@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
-  StyleSheet,
   Keyboard,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";

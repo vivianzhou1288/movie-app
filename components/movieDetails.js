@@ -132,11 +132,11 @@ export default function MovieDetails({ item }) {
           <View className="flex-row flex-wrap justify-center mx-4 space-x-2 mb-3">
             {movie?.genres?.map((genre, index) => {
               return (
-                <View className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current">
-                  <Text
-                    key={index}
-                    className="text-neutral-500 font-semibold text-base text-center"
-                  >
+                <View
+                  key={index}
+                  className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current"
+                >
+                  <Text className="text-neutral-500 font-semibold text-base text-center">
                     {genre?.name}
                   </Text>
                 </View>
