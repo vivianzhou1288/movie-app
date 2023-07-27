@@ -85,7 +85,7 @@ export default function MovieDetails({ item }) {
                   source={{
                     uri: image500(movie?.poster_path) || fallbackMoviePoster,
                   }}
-                  style={{ width: width, height: height * 0.43 }}
+                  style={{ width: width, height: height * 0.4 }}
                   className="rounded-xl"
                 />
                 <TouchableOpacity
@@ -120,7 +120,7 @@ export default function MovieDetails({ item }) {
       <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
         <Animated.View style={{ opacity: fadeAnim }}>
           {/*title */}
-          <Text className="text-white text-center text-3xl font-bold tracking-wider mb-3">
+          <Text className="text-white text-center text-3xl font-bold tracking-wider mt-5 mb-3">
             {movie?.title}
           </Text>
           {movie?.id ? (
@@ -129,16 +129,17 @@ export default function MovieDetails({ item }) {
               {movie?.runtime} min
             </Text>
           ) : null}
-          <View className="flex-row justify-center mx-4 space-x-2 mb-3">
+          <View className="flex-row flex-wrap justify-center mx-4 space-x-2 mb-3">
             {movie?.genres?.map((genre, index) => {
-              let showDot = index + 1 != movie.genres.length;
               return (
-                <Text
-                  key={index}
-                  className="text-neutral-400 font-semibold text-base text-center"
-                >
-                  {genre?.name} {showDot ? "•" : null}
-                </Text>
+                <View className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current">
+                  <Text
+                    key={index}
+                    className="text-neutral-500 font-semibold text-base text-center"
+                  >
+                    {genre?.name}
+                  </Text>
+                </View>
               );
             })}
           </View>

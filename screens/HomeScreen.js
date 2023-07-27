@@ -14,21 +14,20 @@ import MovieList from "../components/movieList";
 import TvList from "../components/tvList";
 import Loading from "../components/loading";
 import {
-  fetchNowPlayingMovies,
   fetchTrendingMovies,
   fetchTopRatedMovies,
-  fetchPopularMovies,
   fetchTrendingShows,
+  fetchTrending,
 } from "../api/moviedb";
 
 const ios = Platform.OS == "ios";
 
 export default function HomeScreen() {
-  const [playing, setPlaying] = useState([]);
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
   const [trendingShows, setTrendingShows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [trendingEverything, setTrendingEverything] = useState([]);
 
   const getTrendingMovies = async () => {
     const data = await fetchTrendingMovies();
@@ -36,15 +35,15 @@ export default function HomeScreen() {
     setLoading(false);
   };
 
-  const getNowPlayingMovies = async () => {
-    const data = await fetchNowPlayingMovies();
-    if (data && data.results) setPlaying(data.results);
+  const getTrendingEverything = async () => {
+    const data = await fetchTrending();
+    if (data && data.results) setTrendingEverything(data.results);
     setLoading(false);
   };
 
   const getTopRatedMovies = async () => {
     const data = await fetchTopRatedMovies();
-    if (data && data.results) setTopRated(data.results);
+    if (data && data.results) setTopRated(data.results.slice(0, 10));
     setLoading(false);
   };
 
@@ -57,7 +56,7 @@ export default function HomeScreen() {
   useEffect(() => {
     setLoading(true);
     getTrendingMovies();
-    getNowPlayingMovies();
+    getTrendingEverything();
     getTopRatedMovies();
     getTrendingShows();
   }, []);
@@ -85,11 +84,6 @@ export default function HomeScreen() {
 
           {/* Trending TV shows row */}
           <TvList title="Trending TV Shows" data={trendingShows} />
-
-          {/* Now-Playing movies row */}
-          {playing.length > 0 && (
-            <MovieList title="Now-Playing" data={playing} />
-          )}
 
           {/* Top Rated movies row */}
           <MovieList title="Top-Rated" data={topRated} />

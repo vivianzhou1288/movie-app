@@ -4,10 +4,8 @@ import { apiKey } from "../constants";
 //endpoints
 const baseURL = "https://api.themoviedb.org/3";
 
-const nowPlayingMoviesEndpoint = `${baseURL}/movie/now_playing?api_key=${apiKey}`;
 const trendingEndpoint = `${baseURL}/trending/all/day?api_key=${apiKey}`;
 const trendingMoviesEndpoint = `${baseURL}/trending/movie/day?api_key=${apiKey}`;
-const upcomingMoviesEndpoint = `${baseURL}/movie/upcoming?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${baseURL}/movie/top_rated?api_key=${apiKey}`;
 const trendingShowsEndpoint = `${baseURL}/trending/tv/day?api_key=${apiKey}`;
 
@@ -18,8 +16,13 @@ const movieCreditsEndpoint = (id) =>
 const similarMoviesEndpoint = (id) =>
   `${baseURL}/movie/${id}/similar?api_key=${apiKey}`;
 const tvDetailsEndpoint = (id) => `${baseURL}/tv/${id}?api_key=${apiKey}`;
+const tvCreditsEndpoint = (id) =>
+  `${baseURL}/tv/${id}/credits?api_key=${apiKey}`;
+const similarTvEndpoint = (id) =>
+  `${baseURL}/tv/${id}/similar?api_key=${apiKey}`;
 const videosEndpoint = (id) =>
   `${baseURL}/movie/${id}/videos?api_key=${apiKey}`;
+const videosTvEndpoint = (id) => `${baseURL}/tv/${id}/videos?api_key=${apiKey}`;
 
 export const image500 = (path) =>
   path ? `https://image.tmdb.org/t/p/w500/${path}` : null;
@@ -48,20 +51,12 @@ const apiCall = async (endpoints, params) => {
   }
 };
 
-export const fetchNowPlayingMovies = () => {
-  return apiCall(nowPlayingMoviesEndpoint);
-};
-
-export const fetchMovies = () => {
+export const fetchTrending = () => {
   return apiCall(trendingEndpoint);
 };
 
 export const fetchTrendingMovies = () => {
   return apiCall(trendingMoviesEndpoint);
-};
-
-export const fetchUpcomingMovies = () => {
-  return apiCall(upcomingMoviesEndpoint);
 };
 
 export const fetchTopRatedMovies = () => {
@@ -88,6 +83,18 @@ export const fetchTvDetails = (id) => {
   return apiCall(tvDetailsEndpoint(id));
 };
 
+export const fetchTvCredits = (id) => {
+  return apiCall(tvCreditsEndpoint(id));
+};
+
+export const fetchSimilarTv = (tvId) => {
+  return apiCall(similarTvEndpoint(tvId));
+};
+
 export const fetchVideos = (id) => {
   return apiCall(videosEndpoint(id));
+};
+
+export const fetchTvVideos = (id) => {
+  return apiCall(videosTvEndpoint(id));
 };

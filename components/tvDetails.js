@@ -7,46 +7,63 @@ import {
   Dimensions,
   TouchableOpacity,
   Animated,
+  TouchableWithoutFeedback,
+  Linking,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "./cast";
 import {
   fallbackMoviePoster,
-  fetchMovieCredits,
+  fetchTvCredits,
   fetchTvDetails,
-  fetchSimilarMovies,
+  fetchSimilarTv,
+  fetchTvVideos,
 } from "../api/moviedb";
 import { image500 } from "../api/moviedb";
-import MovieList from "./movieList";
-import { Motion } from "@legendapp/motion";
-import { fadeIn } from "../utils/motion";
+import TvList from "./tvList";
+import { Ionicons } from "@expo/vector-icons";
 
 var { width, height } = Dimensions.get("window");
 
 export default function TvDetails({ item }) {
   const [tv, setTv] = useState({});
 
-  const getMovieDetails = async (id) => {
+  const youtubeBaseURL = "https://www.youtube.com/watch";
+
+  const getTvDetails = async (id) => {
     const data = await fetchTvDetails(id);
     if (data) setTv(data);
   };
 
-  const getMovieCredits = async (id) => {
-    const data = await fetchMovieCredits(id);
+  const getTvCredits = async (id) => {
+    const data = await fetchTvCredits(id);
 
-    if (data && data.cast) setCast(data.cast);
+    if (data && data.cast) setCast(data.cast.slice(0, 20));
   };
 
-  const getSimilarMovies = async (id) => {
-    const data = await fetchSimilarMovies(id);
+  const getSimilarTv = async (id) => {
+    const data = await fetchSimilarTv(id);
 
-    if (data && data.results) setSimilarMovies(data.results);
+    if (data && data.results) setSimilarTv(data.results.slice(0, 5));
+  };
+
+  const getVideos = async (id) => {
+    const data = await fetchTvVideos(id);
+    const url = `${youtubeBaseURL}?v=${
+      data.results[data.results.length - 1].key
+    }`;
+    if (data && data.results) {
+      setURL(url);
+    } else {
+      setURL("https://www.youtube.com/watch?v=YQZJinEtFlM");
+    }
   };
 
   useEffect(() => {
-    getMovieDetails(item.id);
-    getMovieCredits(item.id);
-    getSimilarMovies(item.id);
+    getTvDetails(item.id);
+    getTvCredits(item.id);
+    getSimilarTv(item.id);
+    getVideos(item.id);
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1700,
@@ -54,9 +71,10 @@ export default function TvDetails({ item }) {
   }, [item]);
 
   const [cast, setCast] = useState([]);
-  const [similarMovies, setSimilarMovies] = useState([]);
+  const [similarTv, setSimilarTv] = useState([]);
   const [active, setActive] = useState("Cast");
   const [fadeAnim] = useState(new Animated.Value(0));
+  const [url, setURL] = useState("");
 
   return (
     <ScrollView
@@ -66,13 +84,27 @@ export default function TvDetails({ item }) {
       <Animated.View style={{ opacity: fadeAnim }}>
         <View className="w-full">
           <View>
-            <Image
-              source={{
-                uri: image500(tv?.poster_path) || fallbackMoviePoster,
-              }}
-              style={{ width: width, height: height * 0.43 }}
-              className="rounded-xl"
-            />
+            <TouchableWithoutFeedback onPress={() => Linking.openURL(url)}>
+              <View>
+                <Image
+                  source={{
+                    uri: image500(tv?.poster_path) || fallbackMoviePoster,
+                  }}
+                  style={{ width: width, height: height * 0.43 }}
+                  className="rounded-xl"
+                />
+                <TouchableOpacity
+                  className="absolute mt-[120px] mx-[160px]"
+                  onPress={() => Linking.openURL(url)}
+                >
+                  <Ionicons
+                    name="play-circle-outline"
+                    size={70}
+                    color={"white"}
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
             <LinearGradient
               colors={[
                 "transparent",
@@ -88,7 +120,7 @@ export default function TvDetails({ item }) {
         </View>
       </Animated.View>
 
-      {/* movie details */}
+      {/* tv details */}
 
       <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
         <Animated.View style={{ opacity: fadeAnim }}>
@@ -122,14 +154,14 @@ export default function TvDetails({ item }) {
         </Animated.View>
 
         {/* cast */}
-        {/* <Animated.View style={{ opacity: fadeAnim }}>
+        <Animated.View style={{ opacity: fadeAnim }}>
           <View className="flew flex-row mt-4">
             <TouchableOpacity onPress={() => setActive("Cast")}>
               <Text className="text-white text-lg mx-4 font-semibold">
                 Cast
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setActive("Movies")}>
+            <TouchableOpacity onPress={() => setActive("TV")}>
               <Text className="text-white text-lg mx-4 font-semibold">
                 Suggested
               </Text>
@@ -139,9 +171,9 @@ export default function TvDetails({ item }) {
             {active === "Cast" && <Cast cast={cast} />}
           </Animated.View>
           <Animated.View style={{ opacity: fadeAnim }}>
-            {active === "Movies" && <MovieList data={similarMovies} />}
+            {active === "TV" && <TvList data={similarTv} />}
           </Animated.View>
-        </Animated.View> */}
+        </Animated.View>
       </View>
     </ScrollView>
   );
