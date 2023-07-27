@@ -7,12 +7,15 @@ import {
   TouchableOpacity,
   Button,
   Keyboard,
+  ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export default function SearchScreen() {
   const [clicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [results, setResults] = useState([1, 2, 3, 4]);
   return (
     <SafeAreaView className="flex-1 bg-black">
       <View className="flex-row items-center">
@@ -58,6 +61,26 @@ export default function SearchScreen() {
           </View>
         )}
       </View>
+      {/* results */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        className="space-y-3"
+      >
+        <Text className="text-white font-semibold ml-1 mt-3">
+          Results ({results.length})
+        </Text>
+        <View className="flex-row justify-between flex-wrap">
+          {results.map((item, index) => {
+            return (
+              <TouchableWithoutFeedback
+                key={index}
+                // on
+              ></TouchableWithoutFeedback>
+            );
+          })}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
