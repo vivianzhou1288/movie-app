@@ -1,18 +1,10 @@
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { SafeAreaView, View, Text, ScrollView, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import Trending from "../components/trending";
 import MovieList from "../components/movieList";
-import TvList from "../components/tvList";
 import Loading from "../components/loading";
+import Upcoming from "../components/upcoming";
 import {
   fetchTopRatedMovies,
   fetchTrending,
@@ -76,8 +68,16 @@ export default function HomeScreen() {
           {/* Popular row */}
           <MovieList title="Popular" data={popularMovies} />
 
+          {/* Upcoming */}
+          <Upcoming />
+
           {/* Top Rated movies row */}
-          <MovieList title="Top-Rated" data={topRated} />
+          <MovieList
+            title="Top-Rated"
+            data={topRated}
+            size={"big"}
+            text={"none"}
+          />
         </ScrollView>
       )}
     </View>

@@ -9,6 +9,7 @@ import {
   Animated,
   TouchableWithoutFeedback,
   Linking,
+  Button,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "./cast";
@@ -20,8 +21,9 @@ import {
   fetchTvVideos,
 } from "../api/moviedb";
 import { image500 } from "../api/moviedb";
-import SuggestedTvList from "./suggestedTvList";
-import { Ionicons } from "@expo/vector-icons";
+import TvList from "./tvList";
+import WatchButton from "./watchButton";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 
 var { width, height } = Dimensions.get("window");
 
@@ -92,14 +94,10 @@ export default function TvDetails({ item }) {
                   className="rounded-xl"
                 />
                 <TouchableOpacity
-                  className="absolute mt-[120px] mx-[160px]"
+                  className="absolute mt-[130px] mx-[173px]"
                   onPress={() => Linking.openURL(url)}
                 >
-                  <Ionicons
-                    name="play-circle-outline"
-                    size={70}
-                    color={"white"}
-                  />
+                  <FontAwesome5 name="play" size={50} color={"lightgray"} />
                 </TouchableOpacity>
               </View>
             </TouchableWithoutFeedback>
@@ -154,6 +152,9 @@ export default function TvDetails({ item }) {
             })}
           </View>
 
+          {/* Watch Button */}
+          <WatchButton link={tv?.homepage} />
+
           {/* description */}
           <Text className="text-neutral-400 mx-4 tracking-wide text-center mb-3">
             {tv?.overview}
@@ -161,7 +162,7 @@ export default function TvDetails({ item }) {
         </Animated.View>
 
         {/* cast */}
-        <Animated.View style={{ opacity: fadeAnim }}>
+        <Animated.View style={{ opacity: fadeAnim, height: height * 0.3 }}>
           <View className="flew flex-row mt-4">
             {cast.length > 0 ? (
               <TouchableOpacity onPress={() => setActive("Cast")}>
@@ -182,7 +183,7 @@ export default function TvDetails({ item }) {
             {active === "Cast" && <Cast cast={cast} />}
           </Animated.View>
           <Animated.View style={{ opacity: fadeAnim }}>
-            {active === "TV" && <SuggestedTvList data={similarTv} />}
+            {active === "TV" && <TvList data={similarTv} text={"yes"} />}
           </Animated.View>
         </Animated.View>
       </View>

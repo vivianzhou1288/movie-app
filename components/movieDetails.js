@@ -20,8 +20,9 @@ import {
   fetchVideos,
 } from "../api/moviedb";
 import { image500 } from "../api/moviedb";
-import SuggestedMovieList from "./suggestedMoviesList";
-import { Ionicons } from "@expo/vector-icons";
+import MovieList from "./movieList";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import WatchButton from "./watchButton";
 
 var { width, height } = Dimensions.get("window");
 const youtubeBaseURL = "https://www.youtube.com/watch";
@@ -91,14 +92,10 @@ export default function MovieDetails({ item }) {
                   className="rounded-xl"
                 />
                 <TouchableOpacity
-                  className="absolute mt-[120px] mx-[160px]"
+                  className="absolute mt-[130px] mx-[173px]"
                   onPress={() => Linking.openURL(url)}
                 >
-                  <Ionicons
-                    name="play-circle-outline"
-                    size={70}
-                    color={"white"}
-                  />
+                  <FontAwesome5 name="play" size={50} color={"lightgray"} />
                 </TouchableOpacity>
               </View>
             </TouchableWithoutFeedback>
@@ -137,9 +134,9 @@ export default function MovieDetails({ item }) {
                 return (
                   <View
                     key={index}
-                    className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current"
+                    className="border-none border-[1px] px-[7px] bg-[#192841] shadow-current rounded-md py-[3px]"
                   >
-                    <Text className="text-neutral-500 font-semibold text-base text-center">
+                    <Text className="text-[#CDCDC5] font-semibold text-base text-center">
                       {genre?.name}
                     </Text>
                   </View>
@@ -149,34 +146,48 @@ export default function MovieDetails({ item }) {
           </View>
 
           {/* description */}
-          <Text className="text-neutral-400 mx-4 tracking-wide text-center mb-3">
-            {movie?.overview}
-          </Text>
+          <View>
+            <Text className="text-neutral-400 mx-4 tracking-wide text-center  mb-3">
+              {movie?.overview}
+            </Text>
+          </View>
+        </Animated.View>
+
+        <Animated.View style={{ opacity: fadeAnim }}>
+          <View>
+            <WatchButton link={movie?.homepage} />
+          </View>
         </Animated.View>
 
         {/* cast */}
-        <Animated.View style={{ opacity: fadeAnim }}>
-          <View className="flew flex-row mt-4">
+        <Animated.View style={{ opacity: fadeAnim, height: height * 0.36 }}>
+          <View className="flew flex-row">
             {cast.length > 0 ? (
-              <TouchableOpacity onPress={() => setActive("Cast")}>
-                <Text className="text-white text-lg mx-4 font-semibold">
-                  Cast
-                </Text>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity onPress={() => setActive("Cast")}>
+                  <Text className="text-white text-lg mx-4 font-semibold">
+                    Cast
+                  </Text>
+                </TouchableOpacity>
+              </View>
             ) : null}
             {similarMovies.length > 0 ? (
-              <TouchableOpacity onPress={() => setActive("Movies")}>
-                <Text className="text-white text-lg mx-4 font-semibold">
-                  Suggested
-                </Text>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity onPress={() => setActive("Movies")}>
+                  <Text className="text-white text-lg mx-4 font-semibold ">
+                    Suggested
+                  </Text>
+                </TouchableOpacity>
+              </View>
             ) : null}
           </View>
           <Animated.View style={{ opacity: fadeAnim }}>
             {active === "Cast" && <Cast cast={cast} />}
           </Animated.View>
           <Animated.View style={{ opacity: fadeAnim }}>
-            {active === "Movies" && <SuggestedMovieList data={similarMovies} />}
+            {active === "Movies" && (
+              <MovieList data={similarMovies} text={"yes"} />
+            )}
           </Animated.View>
         </Animated.View>
       </View>
