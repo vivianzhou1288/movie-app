@@ -14,10 +14,9 @@ import MovieList from "../components/movieList";
 import TvList from "../components/tvList";
 import Loading from "../components/loading";
 import {
-  fetchTrendingMovies,
   fetchTopRatedMovies,
-  fetchTrendingShows,
   fetchTrending,
+  fetchPopularMovies,
 } from "../api/moviedb";
 
 const ios = Platform.OS == "ios";
@@ -25,19 +24,18 @@ const ios = Platform.OS == "ios";
 export default function HomeScreen() {
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
-  const [trendingShows, setTrendingShows] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [trendingEverything, setTrendingEverything] = useState([]);
 
-  const getTrendingMovies = async () => {
-    const data = await fetchTrendingMovies();
+  const getTrending = async () => {
+    const data = await fetchTrending();
     if (data && data.results) setTrending(data.results.slice(0, 10));
     setLoading(false);
   };
 
-  const getTrendingEverything = async () => {
-    const data = await fetchTrending();
-    if (data && data.results) setTrendingEverything(data.results);
+  const getPopularMovies = async () => {
+    const data = await fetchPopularMovies();
+    if (data && data.results) setPopularMovies(data.results.slice(11, 20));
     setLoading(false);
   };
 
@@ -47,18 +45,11 @@ export default function HomeScreen() {
     setLoading(false);
   };
 
-  const getTrendingShows = async () => {
-    const data = await fetchTrendingShows();
-    if (data && data.results) setTrendingShows(data.results.slice(0, 10));
-    setLoading(false);
-  };
-
   useEffect(() => {
     setLoading(true);
-    getTrendingMovies();
-    getTrendingEverything();
+    getTrending();
     getTopRatedMovies();
-    getTrendingShows();
+    getPopularMovies();
   }, []);
 
   return (
@@ -79,11 +70,11 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
-          {/* Trending movies carousel */}
+          {/* Trending row */}
           {trending.length > 0 && <Trending data={trending} />}
 
-          {/* Trending TV shows row */}
-          <TvList title="Trending TV Shows" data={trendingShows} />
+          {/* Popular row */}
+          <MovieList title="Popular" data={popularMovies} />
 
           {/* Top Rated movies row */}
           <MovieList title="Top-Rated" data={topRated} />

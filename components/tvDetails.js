@@ -20,7 +20,7 @@ import {
   fetchTvVideos,
 } from "../api/moviedb";
 import { image500 } from "../api/moviedb";
-import TvList from "./tvList";
+import SuggestedTvList from "./suggestedTvList";
 import { Ionicons } from "@expo/vector-icons";
 
 var { width, height } = Dimensions.get("window");
@@ -49,13 +49,11 @@ export default function TvDetails({ item }) {
 
   const getVideos = async (id) => {
     const data = await fetchTvVideos(id);
-    const url = `${youtubeBaseURL}?v=${
-      data.results[data.results.length - 1].key
-    }`;
-    if (data && data.results) {
+    if (data && data.results > 0) {
+      const url = `${youtubeBaseURL}?v=${
+        data.results[data.results.length - 1].key
+      }`;
       setURL(url);
-    } else {
-      setURL("https://www.youtube.com/watch?v=YQZJinEtFlM");
     }
   };
 
@@ -74,7 +72,7 @@ export default function TvDetails({ item }) {
   const [similarTv, setSimilarTv] = useState([]);
   const [active, setActive] = useState("Cast");
   const [fadeAnim] = useState(new Animated.Value(0));
-  const [url, setURL] = useState("");
+  const [url, setURL] = useState("https://www.youtube.com/watch?v=6zBf_aHWyrc");
 
   return (
     <ScrollView
@@ -141,15 +139,18 @@ export default function TvDetails({ item }) {
           ) : null}
           <View className="flex-row justify-center mx-4 space-x-2 mb-3">
             {tv?.genres?.map((genre, index) => {
-              let showDot = index + 1 != tv.genres.length;
-              return (
-                <Text
-                  key={index}
-                  className="text-neutral-400 font-semibold text-base text-center"
-                >
-                  {genre?.name} {showDot ? "•" : null}
-                </Text>
-              );
+              for (let i = 0; i < 3; i++) {
+                return (
+                  <View
+                    key={index}
+                    className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current"
+                  >
+                    <Text className="text-neutral-500 font-semibold text-base text-center">
+                      {genre?.name}
+                    </Text>
+                  </View>
+                );
+              }
             })}
           </View>
 
@@ -162,22 +163,26 @@ export default function TvDetails({ item }) {
         {/* cast */}
         <Animated.View style={{ opacity: fadeAnim }}>
           <View className="flew flex-row mt-4">
-            <TouchableOpacity onPress={() => setActive("Cast")}>
-              <Text className="text-white text-lg mx-4 font-semibold">
-                Cast
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setActive("TV")}>
-              <Text className="text-white text-lg mx-4 font-semibold">
-                Suggested
-              </Text>
-            </TouchableOpacity>
+            {cast.length > 0 ? (
+              <TouchableOpacity onPress={() => setActive("Cast")}>
+                <Text className="text-white text-lg mx-4 font-semibold">
+                  Cast
+                </Text>
+              </TouchableOpacity>
+            ) : null}
+            {similarTv.length > 0 ? (
+              <TouchableOpacity onPress={() => setActive("TV")}>
+                <Text className="text-white text-lg mx-4 font-semibold">
+                  Suggested
+                </Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
           <Animated.View style={{ opacity: fadeAnim }}>
             {active === "Cast" && <Cast cast={cast} />}
           </Animated.View>
           <Animated.View style={{ opacity: fadeAnim }}>
-            {active === "TV" && <TvList data={similarTv} />}
+            {active === "TV" && <SuggestedTvList data={similarTv} />}
           </Animated.View>
         </Animated.View>
       </View>

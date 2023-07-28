@@ -5,11 +5,10 @@ import { apiKey } from "../constants";
 const baseURL = "https://api.themoviedb.org/3";
 
 const trendingEndpoint = `${baseURL}/trending/all/day?api_key=${apiKey}`;
-const trendingMoviesEndpoint = `${baseURL}/trending/movie/day?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${baseURL}/movie/top_rated?api_key=${apiKey}`;
+const popularMoviesEndpoint = `${baseURL}/movie/popular?api_key=${apiKey}`;
 const searchMoviesEndpoint = `${baseURL}/search/movie?api_key=${apiKey}`;
 const discoverMoviesEndpoint = `${baseURL}/discover/movie?api_key=${apiKey}`;
-const trendingShowsEndpoint = `${baseURL}/trending/tv/day?api_key=${apiKey}`;
 const searchTvEndpoint = `${baseURL}/search/tv?api_key=${apiKey}`;
 const discoverTvEndpoint = `${baseURL}/discover/tv?api_key=${apiKey}`;
 
@@ -59,12 +58,12 @@ export const fetchTrending = () => {
   return apiCall(trendingEndpoint);
 };
 
-export const fetchTrendingMovies = () => {
-  return apiCall(trendingMoviesEndpoint);
-};
-
 export const fetchTopRatedMovies = () => {
   return apiCall(topRatedMoviesEndpoint);
+};
+
+export const fetchPopularMovies = () => {
+  return apiCall(popularMoviesEndpoint);
 };
 
 export const fetchMovieDetails = (id) => {
@@ -77,10 +76,6 @@ export const fetchMovieCredits = (id) => {
 
 export const fetchSimilarMovies = (movieId) => {
   return apiCall(similarMoviesEndpoint(movieId));
-};
-
-export const fetchTrendingShows = () => {
-  return apiCall(trendingShowsEndpoint);
 };
 
 export const fetchTvDetails = (id) => {

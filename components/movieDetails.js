@@ -20,7 +20,7 @@ import {
   fetchVideos,
 } from "../api/moviedb";
 import { image500 } from "../api/moviedb";
-import MovieList from "./movieList";
+import SuggestedMovieList from "./suggestedMoviesList";
 import { Ionicons } from "@expo/vector-icons";
 
 var { width, height } = Dimensions.get("window");
@@ -48,10 +48,12 @@ export default function MovieDetails({ item }) {
 
   const getVideos = async (id) => {
     const data = await fetchVideos(id);
-    const url = `${youtubeBaseURL}?v=${
-      data.results[data.results.length - 1].key
-    }`;
-    setURL(url);
+    if (data && data.results.length > 0) {
+      const url = `${youtubeBaseURL}?v=${
+        data.results[data.results.length - 1].key
+      }`;
+      setURL(url);
+    }
   };
 
   useEffect(() => {
@@ -69,7 +71,7 @@ export default function MovieDetails({ item }) {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [active, setActive] = useState("Cast");
   const [fadeAnim] = useState(new Animated.Value(0));
-  const [url, setURL] = useState("");
+  const [url, setURL] = useState("https://www.youtube.com/watch?v=YQZJinEtFlM");
 
   return (
     <ScrollView
@@ -131,16 +133,18 @@ export default function MovieDetails({ item }) {
           ) : null}
           <View className="flex-row flex-wrap justify-center mx-4 space-x-2 mb-3">
             {movie?.genres?.map((genre, index) => {
-              return (
-                <View
-                  key={index}
-                  className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current"
-                >
-                  <Text className="text-neutral-500 font-semibold text-base text-center">
-                    {genre?.name}
-                  </Text>
-                </View>
-              );
+              for (let i = 0; i < 3; i++) {
+                return (
+                  <View
+                    key={index}
+                    className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current"
+                  >
+                    <Text className="text-neutral-500 font-semibold text-base text-center">
+                      {genre?.name}
+                    </Text>
+                  </View>
+                );
+              }
             })}
           </View>
 
@@ -153,22 +157,26 @@ export default function MovieDetails({ item }) {
         {/* cast */}
         <Animated.View style={{ opacity: fadeAnim }}>
           <View className="flew flex-row mt-4">
-            <TouchableOpacity onPress={() => setActive("Cast")}>
-              <Text className="text-white text-lg mx-4 font-semibold">
-                Cast
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setActive("Movies")}>
-              <Text className="text-white text-lg mx-4 font-semibold">
-                Suggested
-              </Text>
-            </TouchableOpacity>
+            {cast.length > 0 ? (
+              <TouchableOpacity onPress={() => setActive("Cast")}>
+                <Text className="text-white text-lg mx-4 font-semibold">
+                  Cast
+                </Text>
+              </TouchableOpacity>
+            ) : null}
+            {similarMovies.length > 0 ? (
+              <TouchableOpacity onPress={() => setActive("Movies")}>
+                <Text className="text-white text-lg mx-4 font-semibold">
+                  Suggested
+                </Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
           <Animated.View style={{ opacity: fadeAnim }}>
             {active === "Cast" && <Cast cast={cast} />}
           </Animated.View>
           <Animated.View style={{ opacity: fadeAnim }}>
-            {active === "Movies" && <MovieList data={similarMovies} />}
+            {active === "Movies" && <SuggestedMovieList data={similarMovies} />}
           </Animated.View>
         </Animated.View>
       </View>

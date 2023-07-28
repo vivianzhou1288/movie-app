@@ -55,7 +55,7 @@ export default function SearchList({ loading, search, movies }) {
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
                     }}
-                    className="rounded-3xl"
+                    className="rounded-2xl"
                     style={{ width: width * 0.44, height: height * 0.3 }}
                   />
                   <Text className="text-gray-300 ml-1">

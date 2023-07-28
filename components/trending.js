@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,11 +11,11 @@ import {
 import Carousel from "react-native-snap-carousel-v4";
 import { MaterialIcons } from "@expo/vector-icons";
 import MovieDetails from "./movieDetails";
+import TvDetails from "./tvDetails";
 import { fetchMovieDetails, image500 } from "../api/moviedb";
 
 var { width, height } = Dimensions.get("window");
 export default function Trending({ data }) {
-  const navigation = useNavigation();
   const handleClick = (item) => {
     setModalOpen(true);
     setItem(item);
@@ -28,11 +27,16 @@ export default function Trending({ data }) {
   return (
     <View>
       <Text className="text-white text-xl mx-4 mb-5 mt-2 font-semibold">
-        Trending Movies
+        Trending
       </Text>
       <Modal visible={modalOpen} animationType="slide">
         <SafeAreaView className="flex-1 bg-black">
-          <MovieDetails item={item} />
+          {item.original_title ? (
+            <MovieDetails item={item} />
+          ) : (
+            <TvDetails item={item} />
+          )}
+
           <View className="mx-5 mt-[70px] absolute">
             <MaterialIcons
               name="close"
@@ -78,7 +82,7 @@ const MovieCard = ({ item, handleClick }) => {
         />
       </TouchableWithoutFeedback>
       <Text className="text-white mt-4 mb-8 text-2xl font-semibold text-center">
-        {item.original_title}
+        {item.original_title} {item.original_name}
       </Text>
     </View>
   );

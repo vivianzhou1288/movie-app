@@ -17,7 +17,7 @@ import { fallbackMoviePoster, image185 } from "../api/moviedb";
 
 var { width, height } = Dimensions.get("window");
 
-export default function MovieList({ title, data }) {
+export default function SuggestedTvList({ title, data }) {
   const navigation = useNavigation();
   const handleClick = (item) => {
     setModalOpen(true);
@@ -63,7 +63,12 @@ export default function MovieList({ title, data }) {
                   }}
                   className="rounded-2xl"
                   style={{ width: width * 0.33, height: height * 0.22 }}
-                ></Image>
+                />
+                <Text className="text-neutral-300 ml-1">
+                  {item.name.length > 14
+                    ? item.name.slice(0, 14) + "..."
+                    : item.name}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
           );
