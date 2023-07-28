@@ -11,6 +11,8 @@ const searchMoviesEndpoint = `${baseURL}/search/movie?api_key=${apiKey}`;
 const discoverMoviesEndpoint = `${baseURL}/discover/movie?api_key=${apiKey}`;
 const searchTvEndpoint = `${baseURL}/search/tv?api_key=${apiKey}`;
 const discoverTvEndpoint = `${baseURL}/discover/tv?api_key=${apiKey}`;
+const topRatedTvEndpoint = `${baseURL}/tv/top_rated?api_key=${apiKey}`;
+const popularTvEndpoint = `${baseURL}/tv/popular?api_key=${apiKey}`;
 
 //dynamic endpoints
 const movieDetailsEndpoint = (id) => `${baseURL}/movie/${id}?api_key=${apiKey}`;
@@ -36,7 +38,7 @@ export const image185 = (path) =>
 export const fallbackMoviePoster =
   "https://img.freepik.com/premium-vector/clapper-film-movie-icon-design_24877-23150.jpg";
 export const fallbackPersonImage =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUiF-YGjavA63_Au8jQj7zxnFxS_Ay9xc6pxleMqCxH92SzeNSjBTwZ0l61E4B3KTS7o&usqp=CAU";
+  "https://cdn4.vectorstock.com/i/1000x1000/45/83/person-icon-vector-25054583.jpg";
 
 const apiCall = async (endpoints, params) => {
   const options = {
@@ -76,6 +78,14 @@ export const fetchMovieCredits = (id) => {
 
 export const fetchSimilarMovies = (movieId) => {
   return apiCall(similarMoviesEndpoint(movieId));
+};
+
+export const fetchTopRatedTv = () => {
+  return apiCall(topRatedTvEndpoint);
+};
+
+export const fetchPopularTv = () => {
+  return apiCall(popularTvEndpoint);
 };
 
 export const fetchTvDetails = (id) => {

@@ -17,8 +17,7 @@ import { fallbackMoviePoster, image185 } from "../api/moviedb";
 
 var { width, height } = Dimensions.get("window");
 
-export default function MovieList({ title, data, size, text }) {
-  const navigation = useNavigation();
+export default function MovieList({ data, size, text }) {
   const handleClick = (item) => {
     setModalOpen(true);
     setItem(item);
@@ -28,10 +27,7 @@ export default function MovieList({ title, data, size, text }) {
   const [item, setItem] = useState({});
 
   return (
-    <View className="mb-8 space-y-4">
-      <View className="mx-4 flex-row justify-between items-center">
-        <Text className="text-white text-xl font-semibold">{title}</Text>
-      </View>
+    <View className="mt-3 mb-8 space-y-4">
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

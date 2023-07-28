@@ -136,24 +136,22 @@ export default function TvDetails({ item }) {
             </Text>
           ) : null}
           <View className="flex-row justify-center mx-4 space-x-2 mb-3">
-            {tv?.genres?.map((genre, index) => {
-              for (let i = 0; i < 3; i++) {
-                return (
-                  <View
-                    key={index}
-                    className="border-none border-[1px] px-[5px] bg-[#D3D3D3] shadow-current"
-                  >
-                    <Text className="text-neutral-500 font-semibold text-base text-center">
-                      {genre?.name}
-                    </Text>
-                  </View>
-                );
-              }
+            {tv?.genres?.slice(0, 3).map((genre, index) => {
+              return (
+                <View
+                  key={index}
+                  className="border-none border-[1px] px-[7px] bg-[#192841] shadow-current rounded-md py-[3px]"
+                >
+                  <Text className="text-[#CDCDC5] font-semibold text-base text-center">
+                    {genre?.name}
+                  </Text>
+                </View>
+              );
             })}
           </View>
 
-          {/* Watch Button */}
-          <WatchButton link={tv?.homepage} />
+          {/* Watch Button
+          <WatchButton link={tv?.homepage} /> */}
 
           {/* description */}
           <Text className="text-neutral-400 mx-4 tracking-wide text-center mb-3">

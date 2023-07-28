@@ -1,7 +1,7 @@
 export const upcomings = [
   {
-    id: 0,
-    title: "Heartstopper S2",
+    id: 124834,
+    name: "Heartstopper S2",
     date: "Aug 3, 2023",
     type: "Coming to Netflix",
     trailer: "https://www.youtube.com/watch?v=tkkNXt7tJY8",
@@ -9,7 +9,7 @@ export const upcomings = [
       "https://dnm.nflximg.net/api/v6/2DuQlx0fM4wd1nzqm5BFBi6ILa8/AAAAQZ4T7sLWAvjpU786bZBJuY2ohTEEo5jNwh-AjtnPWR5btMDOtIo-BaM_2TYIuIYTOrqe0xqVthJ2aMxgKWkFxVRhJsJ5edJCpSoEmhzhiJCzPD_Qkkf3Q4ntaCMug8MnOR9aQsqI_4kIA2ehg4G5o3gK.jpg?r=fa9",
   },
   {
-    id: 1,
+    id: 565770,
     title: "Blue Beetle",
     date: "Aug 18, 2023",
     type: "Coming to Theaters",
@@ -18,8 +18,8 @@ export const upcomings = [
       "https://www.dexerto.com/cdn-cgi/image/width=3840,quality=75,format=auto/https://editors.dexerto.com/wp-content/uploads/2023/04/03/blue-beetle.jpg",
   },
   {
-    id: 2,
-    title: "Mask Girl",
+    id: 156888,
+    name: "Mask Girl",
     date: "Aug 18, 2023",
     type: "Coming to Netflix",
     trailer: "https://www.youtube.com/watch?v=HEbtoIs0qJ0",
@@ -27,7 +27,7 @@ export const upcomings = [
       "https://www.whats-on-netflix.com/wp-content/uploads/2022/06/mask-girl-netflix-kdrama-series-everything-we-know-so-far.jpg",
   },
   {
-    id: 3,
+    id: 507089,
     title: "Five Night at Freddy's",
     date: "Oct 27, 2023",
     type: "Coming to Theaters",
@@ -36,7 +36,7 @@ export const upcomings = [
       "https://images.immediate.co.uk/production/volatile/sites/3/2023/04/Five-Nights-Movie-f42d235.jpg",
   },
   {
-    id: 4,
+    id: 609681,
     title: "The Marvels",
     date: "Nov 10, 2023",
     type: "Coming to Theaters",

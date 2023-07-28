@@ -25,6 +25,7 @@ import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import WatchButton from "./watchButton";
 
 var { width, height } = Dimensions.get("window");
+
 const youtubeBaseURL = "https://www.youtube.com/watch";
 
 export default function MovieDetails({ item }) {
@@ -129,19 +130,17 @@ export default function MovieDetails({ item }) {
             </Text>
           ) : null}
           <View className="flex-row flex-wrap justify-center mx-4 space-x-2 mb-3">
-            {movie?.genres?.map((genre, index) => {
-              for (let i = 0; i < 3; i++) {
-                return (
-                  <View
-                    key={index}
-                    className="border-none border-[1px] px-[7px] bg-[#192841] shadow-current rounded-md py-[3px]"
-                  >
-                    <Text className="text-[#CDCDC5] font-semibold text-base text-center">
-                      {genre?.name}
-                    </Text>
-                  </View>
-                );
-              }
+            {movie?.genres?.slice(0, 3).map((genre, index) => {
+              return (
+                <View
+                  key={index}
+                  className="border-none border-[1px] px-[7px] bg-[#192841] shadow-current rounded-md py-[3px]"
+                >
+                  <Text className="text-[#CDCDC5] font-semibold text-base text-center">
+                    {genre?.name}
+                  </Text>
+                </View>
+              );
             })}
           </View>
 
@@ -153,11 +152,11 @@ export default function MovieDetails({ item }) {
           </View>
         </Animated.View>
 
-        <Animated.View style={{ opacity: fadeAnim }}>
+        {/* <Animated.View style={{ opacity: fadeAnim }}>
           <View>
             <WatchButton link={movie?.homepage} />
           </View>
-        </Animated.View>
+        </Animated.View> */}
 
         {/* cast */}
         <Animated.View style={{ opacity: fadeAnim, height: height * 0.36 }}>

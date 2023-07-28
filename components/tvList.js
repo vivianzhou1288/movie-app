@@ -18,7 +18,6 @@ import { fallbackMoviePoster, image185 } from "../api/moviedb";
 var { width, height } = Dimensions.get("window");
 
 export default function TvList({ title, data, size, text }) {
-  const navigation = useNavigation();
   const handleClick = (item) => {
     setModalOpen(true);
     setItem(item);
@@ -28,10 +27,10 @@ export default function TvList({ title, data, size, text }) {
   const [item, setItem] = useState({});
 
   return (
-    <View className="mb-8 space-y-4">
-      <View className="mx-4 flex-row justify-between items-center">
+    <View className="mt-3 mb-8 space-y-4">
+      {/* <View className="mx-4 flex-row justify-between items-center">
         <Text className="text-white text-xl font-semibold">{title}</Text>
-      </View>
+      </View> */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -62,7 +61,7 @@ export default function TvList({ title, data, size, text }) {
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
                     }}
-                    className="rounded-3xl"
+                    className="rounded-lg"
                     style={{ width: width * 0.5, height: height * 0.4 }}
                   />
                 ) : (
@@ -70,7 +69,7 @@ export default function TvList({ title, data, size, text }) {
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
                     }}
-                    className="rounded-3xl"
+                    className="rounded-2xl"
                     style={{ width: width * 0.33, height: height * 0.22 }}
                   />
                 )}
