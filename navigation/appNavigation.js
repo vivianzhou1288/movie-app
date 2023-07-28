@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
-import SearchScreen2 from "../screens/SearchScreen2";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
@@ -49,7 +48,7 @@ export default function AppNavigation() {
               />
             ),
           }}
-          component={SearchScreen2}
+          component={SearchScreen}
         />
       </Tab.Navigator>
     </NavigationContainer>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -8,53 +8,81 @@ import {
   Button,
   Keyboard,
   ScrollView,
-  TouchableWithoutFeedback,
-  Modal,
-  Dimensions,
   Image,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import MovieDetails from "../components/movieDetails";
-import { searchMovies } from "../api/moviedb";
+import {
+  searchMovies,
+  fetchDiscoverMovies,
+  fetchDiscoverTv,
+  searchTv,
+} from "../api/moviedb";
+import useDebounce from "../constants/useDebounce";
+import SearchList from "../components/searchList";
+import SearchTvList from "../components/searchTvList";
 import Loading from "../components/loading";
-import { debounce } from "lodash";
-
-const { width, height } = Dimensions.get("window");
-const movieName = "Ant-Man and the Wasp: Quantumania";
 
 export default function SearchScreen() {
-  const ref = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([1, 2, 3, 4]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [tv, setTv] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const debouncedSearch = useDebounce(search, 500);
 
-  const [item, setItem] = useState({});
-  const handleClick = (item) => {
-    setModalOpen(true);
-    setItem(item);
+  const getAllMovies = async () => {
+    const data = await fetchDiscoverMovies();
+    if (data && data.results) setMovies(data.results.slice(0, 6));
+    setLoading(false);
   };
 
-  const handleSearch = (search) => {
-    if (search && search.length > 2) {
+  const getAllTv = async () => {
+    const data = await fetchDiscoverTv();
+    if (data && data.results) setTv(data.results.slice(0, 6));
+    setLoading(false);
+  };
+
+  function getSearchedMovies(name) {
+    if (name && name.length > 2) {
       setLoading(true);
-      setSearch(search);
       searchMovies({
-        query: search,
+        query: name,
+        include_adult: false,
       }).then((data) => {
-        console.log("got search results");
         setLoading(false);
-        if (data && data.results) setResults(data.results);
+        if (data && data.results) setMovies(data.results.slice(0, 10));
       });
     } else {
       setLoading(false);
-      setResults([]);
+      setMovies([]);
     }
-  };
+  }
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+  function getSearchedTv(name) {
+    if (name && name.length > 2) {
+      setLoading(true);
+      searchTv({
+        query: name,
+        include_adult: false,
+      }).then((data) => {
+        setLoading(false);
+        if (data && data.results) setTv(data.results.slice(0, 10));
+      });
+    } else {
+      setLoading(false);
+      setTv([]);
+    }
+  }
+
+  useEffect(() => {
+    if (search === "") {
+      getAllMovies();
+      getAllTv();
+    } else {
+      getSearchedMovies(debouncedSearch);
+      getSearchedTv(debouncedSearch);
+    }
+  }, [debouncedSearch]);
 
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -70,14 +98,15 @@ export default function SearchScreen() {
           <TextInput
             placeholder="Search by title"
             placeholderTextColor={"#9A9A9A"}
-            onChangeText={handleTextDebounce}
+            value={search}
+            onChangeText={(textInput) => setSearch(textInput)}
             className="pb-1 pl-3 flex-1 text-base text-black tracking-wider h-12 text-[17.5px]"
             onFocus={() => {
               setClicked(true);
             }}
           />
           {clicked && (
-            <TouchableOpacity className="mr-3">
+            <TouchableOpacity className="mr-3" onPress={() => setSearch("")}>
               <Ionicons name={"close-circle-outline"} size={25} />
             </TouchableOpacity>
           )}
@@ -90,6 +119,7 @@ export default function SearchScreen() {
               onPress={() => {
                 Keyboard.dismiss();
                 setClicked(false);
+                setSearch("");
               }}
             />
           </View>
@@ -98,56 +128,52 @@ export default function SearchScreen() {
       {/* results */}
       {loading ? (
         <Loading />
-      ) : results.length > 0 ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 15 }}
-          className="space-y-3"
-        >
-          <Text className="text-white font-semibold ml-1 mt-3">Results</Text>
-          <View className="flex-row justify-between flex-wrap">
-            <Modal visible={modalOpen} animationType="slide">
-              <SafeAreaView className="flex-1 bg-black">
-                <MovieDetails item={item} />
-                <View className="mx-5 mt-[70px] absolute">
-                  <MaterialIcons
-                    name="close"
-                    size={30}
-                    onPress={() => setModalOpen(false)}
-                    color={"white"}
-                  />
-                </View>
-              </SafeAreaView>
-            </Modal>
-            {results.map((item, index) => {
-              return (
-                <TouchableWithoutFeedback
-                  key={index}
-                  onPress={() => handleClick(item)}
-                >
-                  <View className="space-y-2 mb-4">
-                    <Image
-                      className="rounded-2xl"
-                      source={require("../assets/images/moviePoster2.png")}
-                      style={{ width: width * 0.44, height: height * 0.3 }}
-                    />
-                    <Text className="text-neutral-400 ml-1 items-center">
-                      {movieName.length > 22
-                        ? movieName.slice(0, 22) + "..."
-                        : movieName}
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              );
-            })}
-          </View>
-        </ScrollView>
       ) : (
-        <View className="flex-row justify-center">
-          <Image
-            source={require("../assets/images/movieTime.png")}
-            className="h-96 w-96"
-          />
+        <View>
+          <View className="ml-2 mb-3">
+            {search === "" ? (
+              <Text className="text-white font-semibold ml-[10px] mt-3">
+                Discover
+              </Text>
+            ) : (
+              <Text className="text-white font-semibold ml-3 mt-3">
+                Results ({movies.length + tv.length})
+              </Text>
+            )}
+          </View>
+          {movies.length + tv.length > 0 ? (
+            <ScrollView className="mb-[120px]">
+              {movies.length > 0 ? (
+                <View>
+                  <Text className="text-white ml-[19px] font-semibold mb-3">
+                    Movie
+                  </Text>
+                  <SearchList search={search} movies={movies} />
+                </View>
+              ) : null}
+
+              {tv.length > 0 ? (
+                <View>
+                  <Text className="text-white ml-[19px] font-semibold mt-3 mb-3">
+                    TV Shows
+                  </Text>
+                  <SearchTvList tv={tv} />
+                </View>
+              ) : null}
+            </ScrollView>
+          ) : (
+            <View className="justify-center">
+              <Image
+                source={require("../assets/images/movieTime.png")}
+                className="h-96 w-96"
+              />
+              <View className="items-center">
+                <Text className="text-white text-[25px] mt-[-25px]">
+                  No Results
+                </Text>
+              </View>
+            </View>
+          )}
         </View>
       )}
     </SafeAreaView>

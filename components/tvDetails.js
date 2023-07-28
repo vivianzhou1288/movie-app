@@ -130,7 +130,13 @@ export default function TvDetails({ item }) {
           </Text>
           {tv.id ? (
             <Text className="text-neutral-400 font-semibold text-base text-center mb-3">
-              {tv?.number_of_seasons} seasons • {tv?.number_of_episodes} eps
+              {tv?.number_of_seasons}{" "}
+              {tv?.number_of_seasons > 1 ? (
+                <Text>seasons</Text>
+              ) : (
+                <Text>season</Text>
+              )}{" "}
+              • {tv?.number_of_episodes} eps
             </Text>
           ) : null}
           <View className="flex-row justify-center mx-4 space-x-2 mb-3">

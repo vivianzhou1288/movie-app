@@ -66,7 +66,7 @@ export default function HomeScreen() {
       <SafeAreaView className={ios ? "-mb-2" : "mb-3"}>
         <StatusBar style="light" />
         <View className="items-center">
-          <Text className="text-white text-3xl font-bold mt-3 mb-9">
+          <Text className="text-[#FFAE42] text-3xl font-bold mt-3 mb-9">
             WatcherList
           </Text>
         </View>

@@ -27,7 +27,7 @@ export default function Trending({ data }) {
 
   return (
     <View>
-      <Text className="text-white text-xl mx-4 mb-5 font-semibold">
+      <Text className="text-white text-xl mx-4 mb-5 mt-2 font-semibold">
         Trending Movies
       </Text>
       <Modal visible={modalOpen} animationType="slide">
@@ -52,7 +52,7 @@ export default function Trending({ data }) {
         firstItem={1}
         inactiveSlideOpacity={0.6}
         sliderWidth={width}
-        itemWidth={width * 0.62}
+        itemWidth={width * 0.8}
         slideStyle={{ display: "flex", alignItems: "center" }}
         useScrollView={true}
         loop={false}
@@ -69,13 +69,12 @@ const MovieCard = ({ item, handleClick }) => {
     <View className="items-center">
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <Image
-          // source={require("../assets/images/moviePoster1.png")}
           source={{ uri: image500(item.poster_path) }}
           style={{
-            width: width * 0.6,
-            height: height * 0.4,
+            width: width * 0.8,
+            height: height * 0.55,
           }}
-          className="rounded-3xl"
+          className="rounded-2xl"
         />
       </TouchableWithoutFeedback>
       <Text className="text-white mt-4 mb-8 text-2xl font-semibold text-center">
