@@ -130,7 +130,7 @@ export default function SearchScreen() {
         <Loading />
       ) : (
         <View>
-          <View className="ml-2 mb-3">
+          <View className="ml-2 mb-3 ">
             {search === "" ? (
               <Text className="text-white font-semibold ml-[10px] mt-3">
                 Discover

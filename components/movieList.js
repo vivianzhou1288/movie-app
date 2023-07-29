@@ -37,12 +37,14 @@ export default function MovieList({ data, size, text }) {
           <SafeAreaView className="flex-1 bg-black">
             <MovieDetails item={item} />
             <View className="mx-5 mt-[70px] absolute">
-              <MaterialIcons
-                name="close"
-                size={30}
-                onPress={() => setModalOpen(false)}
-                color={"white"}
-              />
+              <TouchableOpacity className="bg-[#eab308] rounded-xl p-1">
+                <MaterialIcons
+                  name="close"
+                  size={30}
+                  onPress={() => setModalOpen(false)}
+                  color={"white"}
+                />
+              </TouchableOpacity>
             </View>
           </SafeAreaView>
         </Modal>
@@ -66,7 +68,7 @@ export default function MovieList({ data, size, text }) {
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
                     }}
-                    className="rounded-2xl"
+                    className="rounded-2xl relative"
                     style={{ width: width * 0.33, height: height * 0.22 }}
                   />
                 )}

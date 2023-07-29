@@ -23,12 +23,14 @@ import { image500 } from "../api/moviedb";
 import MovieList from "./movieList";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import WatchButton from "./watchButton";
+import { useNavigation } from "@react-navigation/native";
 
 var { width, height } = Dimensions.get("window");
 
 const youtubeBaseURL = "https://www.youtube.com/watch";
 
 export default function MovieDetails({ item }) {
+  const navigation = useNavigation();
   const [movie, setMovie] = useState({});
 
   const getMovieDetails = async (id) => {
@@ -90,7 +92,7 @@ export default function MovieDetails({ item }) {
                     uri: image500(movie?.poster_path) || fallbackMoviePoster,
                   }}
                   style={{ width: width, height: height * 0.4 }}
-                  className="rounded-xl"
+                  className="rounded-xl relative"
                 />
                 <TouchableOpacity
                   className="absolute mt-[130px] mx-[173px]"
@@ -98,6 +100,22 @@ export default function MovieDetails({ item }) {
                 >
                   <FontAwesome5 name="play" size={50} color={"lightgray"} />
                 </TouchableOpacity>
+                <View
+                  className="absolute right-5 top-2 elevation-8 bg-yellow-500 px-2 py-0.5 rounded-xl rounded-bl-xl"
+                  styles={{ width: width * 0.3 }}
+                >
+                  <TouchableOpacity
+                    className="flex-row items-center"
+                    onPress={() => {
+                      navigation.push("Review", item);
+                    }}
+                  >
+                    <Ionicons name="heart" size={30} color={"#fa2a55"} />
+                    <Text className="text-[#fa2a55] font-bold ml-1">
+                      {(Math.round(item.vote_average * 10) / 10).toFixed(1)}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </TouchableWithoutFeedback>
             <LinearGradient

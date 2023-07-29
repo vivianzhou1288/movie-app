@@ -8,7 +8,7 @@ import SearchScreen from "../screens/SearchScreen";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
   return (
@@ -54,3 +54,5 @@ export default function AppNavigation() {
     </NavigationContainer>
   );
 }
+
+//

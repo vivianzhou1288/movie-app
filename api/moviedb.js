@@ -20,6 +20,9 @@ const movieCreditsEndpoint = (id) =>
   `${baseURL}/movie/${id}/credits?api_key=${apiKey}`;
 const similarMoviesEndpoint = (id) =>
   `${baseURL}/movie/${id}/similar?api_key=${apiKey}`;
+const moviesReviewsEndpoint = (id) => {
+  `${baseURL}/movie/${id}/reviews?api_key=${apiKey}`;
+};
 const tvDetailsEndpoint = (id) => `${baseURL}/tv/${id}?api_key=${apiKey}`;
 const tvCreditsEndpoint = (id) =>
   `${baseURL}/tv/${id}/credits?api_key=${apiKey}`;
@@ -122,4 +125,8 @@ export const fetchDiscoverMovies = () => {
 
 export const fetchDiscoverTv = () => {
   return apiCall(discoverTvEndpoint);
+};
+
+export const fetchMovieReviews = (id) => {
+  return apiCall(moviesReviewsEndpoint(id));
 };
