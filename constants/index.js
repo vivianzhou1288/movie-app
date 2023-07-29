@@ -1,16 +1,31 @@
 export const apiKey = "26bc849920009db729d17e22a03accef";
 
-export const moviesData = [
-  {
-    id: 2,
-    title: "Ant-Man and the Wasp: Quantumania",
-    backgroundPoster:
-      "https://image.tmdb.org/t/p/w500/9Hk9qdCyce04VXNQuDXAK1d138E.jpg",
-    image: "https://image.tmdb.org/t/p/w500/qnqGbB22YJ7dSs4o6M7exTpNxPz.jpg",
-    description:
-      "Super-Hero partners Scott Lang and Hope van Dyne, along with with Hope's parents Janet van Dyne and Hank Pym, and Scott's daughter Cassie Lang, find themselves exploring the Quantum Realm, interacting with strange new creatures and embarking on an adventure that will push them beyond the limits of what they thought possible.",
-    releaseDate: "1991-01-18",
-    releaseYear: "2020",
-    runTime: "170",
-  },
-];
+export const genres = {
+  10759: "Action & Adventure",
+  28: "Action",
+  12: "Adventure",
+  16: "Animation",
+  35: "Comedy",
+  80: "Crime",
+  99: "Documentry",
+  18: "Drama",
+  10751: "Family",
+  10762: "Kids",
+  14: "Fantasy",
+  36: "History",
+  27: "Horror",
+  10402: "Music",
+  9648: "Mystery",
+  10763: "News",
+  10764: "Reality",
+  10765: "Sci-Fi & Fantasy",
+  10766: "Soap",
+  10767: "Talk",
+  10768: "War & Poltics",
+  10749: "Romance",
+  878: "Science Fiction",
+  10770: "TV Movie",
+  53: "Thriller",
+  10752: "War",
+  37: "Western",
+};

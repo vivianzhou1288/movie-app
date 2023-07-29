@@ -13,6 +13,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import MovieDetails from "./movieDetails";
 import TvDetails from "./tvDetails";
 import { fetchMovieDetails, image500 } from "../api/moviedb";
+import { Ionicons } from "@expo/vector-icons";
+import genres from "../constants/index";
 
 var { width, height } = Dimensions.get("window");
 export default function Trending({ data }) {
@@ -72,18 +74,40 @@ const MovieCard = ({ item, handleClick }) => {
   return (
     <View className="items-center">
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-        <Image
-          source={{ uri: image500(item.poster_path) }}
-          style={{
-            width: width * 0.8,
-            height: height * 0.55,
-          }}
-          className="rounded-2xl"
-        />
+        <View>
+          <Image
+            source={{ uri: image500(item.poster_path) }}
+            style={{
+              width: width * 0.8,
+              height: height * 0.55,
+            }}
+            className="rounded-2xl relative"
+          />
+          <View
+            className="absolute flex-row right-0 top-0 items-center elevation-8 bg-yellow-500 px-2 py-0.5 rounded-tr-2xl rounded-bl-xl"
+            styles={{ width: width * 0.3 }}
+          >
+            <Ionicons name="heart" size={30} color={"#fa2a55"} />
+            <Text className="text-[#fa2a55] font-bold ml-1">
+              {(Math.round(item.vote_average * 10) / 10).toFixed(1)}
+            </Text>
+          </View>
+        </View>
       </TouchableWithoutFeedback>
       <Text className="text-white mt-4 mb-8 text-2xl font-semibold text-center">
         {item.original_title} {item.original_name}
       </Text>
+      <View>
+        {item.genre_ids.map((genre) => {
+          // console.log(genre);
+          // console.log(genres[genre]);
+          // return (
+          //   <View key={genre}>
+          //     <Text>{genres[genre]}</Text>
+          //   </View>
+          // );
+        })}
+      </View>
     </View>
   );
 };
