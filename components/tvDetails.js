@@ -99,7 +99,18 @@ export default function TvDetails({ item }) {
                 >
                   <FontAwesome5 name="play" size={50} color={"lightgray"} />
                 </TouchableOpacity>
+                { item.vote_average ? (<View
+                  className="absolute right-5 top-2 elevation-8 bg-yellow-500 px-2 py-0.5 rounded-xl rounded-bl-xl"
+                  styles={{ width: width * 0.3 }}
+                >
+                  <View
+                    className="flex-row items-center"
+                  ><Ionicons name="heart" size={30} color={"#fa2a55"} />
+                    <Text className="text-[#fa2a55] font-bold ml-1">
+                      {(Math.round(item.vote_average * 10) / 10).toFixed(1)}
+                    </Text></View></View>) : null} 
               </View>
+              
             </TouchableWithoutFeedback>
             <LinearGradient
               colors={[

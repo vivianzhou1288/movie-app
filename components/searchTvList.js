@@ -8,6 +8,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { image185, fallbackMoviePoster } from "../api/moviedb";
@@ -35,12 +36,14 @@ export default function SearchTvList({ tv, changeLoading }) {
             <SafeAreaView className="flex-1 bg-black">
               <TvDetails item={item} />
               <View className="mx-5 mt-[70px] absolute">
+              <TouchableOpacity className="bg-[#eab308] rounded-xl p-1">
                 <MaterialIcons
                   name="close"
                   size={30}
                   onPress={() => setModalOpen(false)}
                   color={"white"}
                 />
+                </TouchableOpacity>
               </View>
             </SafeAreaView>
           </Modal>

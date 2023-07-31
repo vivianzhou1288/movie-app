@@ -54,12 +54,14 @@ function UpcomingCard({ movie }) {
           {movie.title && <MovieDetails item={item} />}
           {movie.name && <TvDetails item={item} />}
           <View className="mx-5 mt-[70px] absolute">
-            <MaterialIcons
-              name="close"
-              size={30}
-              onPress={() => setModalOpen(false)}
-              color={"white"}
-            />
+          <TouchableOpacity className="bg-[#eab308] rounded-xl p-1">
+                <MaterialIcons
+                  name="close"
+                  size={30}
+                  onPress={() => setModalOpen(false)}
+                  color={"white"}
+                />
+                </TouchableOpacity>
           </View>
         </SafeAreaView>
       </Modal>

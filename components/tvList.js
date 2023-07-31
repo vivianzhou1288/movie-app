@@ -40,12 +40,14 @@ export default function TvList({ title, data, size, text }) {
           <SafeAreaView className="flex-1 bg-black">
             <TvDetails item={item} />
             <View className="mx-5 mt-[70px] absolute">
+              <TouchableOpacity className="bg-[#eab308] rounded-xl p-1">
               <MaterialIcons
                 name="close"
                 size={30}
                 onPress={() => setModalOpen(false)}
                 color={"white"}
               />
+              </TouchableOpacity>
             </View>
           </SafeAreaView>
         </Modal>
