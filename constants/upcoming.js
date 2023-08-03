@@ -1,14 +1,5 @@
 export const upcomings = [
   {
-    id: 124834,
-    name: "Heartstopper S2",
-    date: "Aug 3, 2023",
-    type: "Coming to Netflix",
-    trailer: "https://www.youtube.com/watch?v=tkkNXt7tJY8",
-    picture:
-      "https://dnm.nflximg.net/api/v6/2DuQlx0fM4wd1nzqm5BFBi6ILa8/AAAAQZ4T7sLWAvjpU786bZBJuY2ohTEEo5jNwh-AjtnPWR5btMDOtIo-BaM_2TYIuIYTOrqe0xqVthJ2aMxgKWkFxVRhJsJ5edJCpSoEmhzhiJCzPD_Qkkf3Q4ntaCMug8MnOR9aQsqI_4kIA2ehg4G5o3gK.jpg?r=fa9",
-  },
-  {
     id: 565770,
     title: "Blue Beetle",
     date: "Aug 18, 2023",
@@ -43,5 +34,14 @@ export const upcomings = [
     trailer: "https://www.youtube.com/watch?v=wS_qbDztgVY",
     picture:
       "https://i0.wp.com/thedisneyblog.com/wp-content/uploads/2023/04/d23expo-themarvels-cast2.jpg?fit=800%2C450&ssl=1",
+  },
+  {
+    id: 84958,
+    name: "Loki S2",
+    date: "October 6, 2023",
+    type: "Coming to Disney+",
+    trailer: "https://www.youtube.com/watch?v=dug56u8NN7g",
+    picture:
+      "https://cdn.shortpixel.ai/spai/q_glossy+w_998+to_webp+ret_img/https://thecosmiccircus.com/wp-content/uploads/2023/06/loki-and-kang-season-2-victor-timely-800x445.jpg",
   },
 ];
