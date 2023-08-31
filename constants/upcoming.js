@@ -1,23 +1,5 @@
 export const upcomings = [
   {
-    id: 565770,
-    title: "Blue Beetle",
-    date: "Aug 18, 2023",
-    type: "Coming to Theaters",
-    trailer: "https://www.youtube.com/watch?v=vS3_72Gb-bI",
-    picture:
-      "https://www.dexerto.com/cdn-cgi/image/width=3840,quality=75,format=auto/https://editors.dexerto.com/wp-content/uploads/2023/04/03/blue-beetle.jpg",
-  },
-  {
-    id: 156888,
-    name: "Mask Girl",
-    date: "Aug 18, 2023",
-    type: "Coming to Netflix",
-    trailer: "https://www.youtube.com/watch?v=HEbtoIs0qJ0",
-    picture:
-      "https://www.whats-on-netflix.com/wp-content/uploads/2022/06/mask-girl-netflix-kdrama-series-everything-we-know-so-far.jpg",
-  },
-  {
     id: 507089,
     title: "Five Night at Freddy's",
     date: "Oct 27, 2023",
@@ -43,5 +25,23 @@ export const upcomings = [
     trailer: "https://www.youtube.com/watch?v=dug56u8NN7g",
     picture:
       "https://cdn.shortpixel.ai/spai/q_glossy+w_998+to_webp+ret_img/https://thecosmiccircus.com/wp-content/uploads/2023/06/loki-and-kang-season-2-victor-timely-800x445.jpg",
+  },
+  {
+    id: 787699,
+    name: "Wonka",
+    date: "December 15, 2023",
+    type: "Coming to Theaters",
+    trailer: "https://www.youtube.com/watch?v=otNh9bTjXWg",
+    picture:
+      "https://media.cnn.com/api/v1/images/stellar/prod/230711171218-wonka-first-look-1.jpg?c=16x9&q=h_720,w_1280,c_fill",
+  },
+  {
+    id: 103540,
+    name: "Percy Jackson and the Olympians",
+    date: "December 20, 2023",
+    type: "Coming to Disney+",
+    trailer: "https://www.youtube.com/watch?v=Y3gF6Duh_z0",
+    picture:
+      "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/F8B4E2B79C611C4C6512E07C17EB145B987DBC200A14DCC59628889D66DCD5AB/scale?width=1200&aspectRatio=1.78&format=jpeg",
   },
 ];
