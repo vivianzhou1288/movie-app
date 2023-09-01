@@ -8,9 +8,9 @@ Home Page:
 - Users can click into a movie/TV show, and information regarding the movie/TV show will show up.
 <br><br>
 
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/863e608c-210b-4371-97d8-d49945b88dd4" width="170" height="400" />
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/6c7f8f8a-2fc1-45d5-ac67-6cfd5994c7b4" width="170" height="400" />
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/1a1dcb7e-a102-4d0e-8875-b163bca1b254" width="170" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/863e608c-210b-4371-97d8-d49945b88dd4" width="180" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/6c7f8f8a-2fc1-45d5-ac67-6cfd5994c7b4" width="180" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/1a1dcb7e-a102-4d0e-8875-b163bca1b254" width="180" height="400" />
 <br><br><br>
 
 Search Page:
@@ -20,10 +20,10 @@ Search Page:
 - Users can click into a movie/TV show, and information regarding the movie/TV show will show up.
 <br><br>
 
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/7ba796f9-ac45-48e3-b4fe-a988a9366fb6" width="170" height="400" />
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/55efe822-7861-4be2-ba9f-b1ea77b8a333" width="170" height="400" />
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/fe5d6e1e-f0f3-4733-a6cb-bafd41ee8007" width="170" height="400" />
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/e3eb25fd-87b3-46e2-9460-f6b791050de7" width="170" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/7ba796f9-ac45-48e3-b4fe-a988a9366fb6" width="180" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/55efe822-7861-4be2-ba9f-b1ea77b8a333" width="180" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/fe5d6e1e-f0f3-4733-a6cb-bafd41ee8007" width="180" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/e3eb25fd-87b3-46e2-9460-f6b791050de7" width="180" height="400" />
 <br><br><br>
 
 
@@ -34,8 +34,8 @@ Movie/TV Show Information Page:
 - Users can explore the cast of the movie/TV show or any similar content.
 <br><br>
 
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/e7b03491-b04d-4b99-9dff-48bbbb42decb" width="170" height="400" />
-<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/c187a3cb-638f-4209-899c-52ac1cd32d7f" width="170" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/e7b03491-b04d-4b99-9dff-48bbbb42decb" width="180" height="400" />
+<img src="https://github.com/vivianzhou1288/movie-app/assets/87792254/c187a3cb-638f-4209-899c-52ac1cd32d7f" width="180" height="400" />
 <br><br><br>
 
 
